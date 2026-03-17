@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Elsie — Your AI Grocery Coach</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css?v=35">
+</head>
+<body>
+    <!-- ONBOARDING SCREEN -->
+    <div id="screen-onboard" class="screen active">
+        <div class="onboard-container">
+            <div class="elsie-logo">
+                <img src="/static/elsie-mascot.png" alt="Elsie" class="mascot-img">
+            </div>
+            <h1 class="app-title">Meet <span class="highlight">Elsie</span></h1>
+            <p class="app-subtitle">Your AI grocery coach that watches the shelf and tells you what to grab — based on <em>your</em> health.</p>
+
+            <div class="feature-pills">
+                <span class="pill">🎤 Voice Coach</span>
+                <span class="pill">📷 Sees Shelves</span>
+                <span class="pill">🧬 Health-Aware</span>
+            </div>
+
+            <div class="onboard-section">
+                <h3>Quick Setup</h3>
+                <div class="condition-selector">
+                    <p class="selector-label">What are your dietary goals?</p>
+                    <div class="condition-chips" id="condition-chips">
+                        <button class="chip" data-condition="type2_diabetes">🩸 Type 2 Diabetes</button>
+                        <button class="chip" data-condition="pre_diabetes">⚡ Pre-diabetes</button>
+                        <button class="chip" data-condition="high_cholesterol">❤️ High Cholesterol</button>
+                        <button class="chip" data-condition="hypertension">🫀 Hypertension</button>
+                        <button class="chip" data-condition="pregnancy">🤰 Pregnancy</button>
+                        <button class="chip" data-condition="kidney_disease">🫘 Kidney Health</button>
+                        <button class="chip" data-condition="celiac">🌾 Celiac / Gluten-Free</button>
+                        <button class="chip" data-condition="vegetarian">🥬 Vegetarian</button>
+                        <button class="chip" data-condition="vegan">🌱 Vegan</button>
+                        <button class="chip" data-condition="dairy_free">🥛 Dairy-Free</button>
+                        <button class="chip" data-condition="nut_allergy">🥜 Nut Allergy</button>
+                        <button class="chip" data-condition="heart_health">💚 Heart Health</button>
+                    </div>
+                    <div id="selection-summary" class="selection-summary"></div>
+                </div>
+
+                <div class="upload-section">
+                    <img src="/static/elsie-report.png" alt="Elsie reading your report" class="upload-banner-img">
+                    <p class="selector-label">Got a lab report? Let Elsie read it.</p>
+                    <p class="upload-note">She'll extract your key markers and immediately delete the report. Zero storage. Supports PDF, PNG, JPG.</p>
+                    <label class="upload-btn" for="lab-report">
+                        <span>📄 Upload Lab Report</span>
+                        <input type="file" id="lab-report" accept=".pdf,.png,.jpg,.jpeg,image/*,application/pdf" hidden>
+                    </label>
+                    <div id="upload-status" class="upload-status"></div>
+                </div>
+            </div>
+
+            <button class="btn-primary" id="btn-start">
+                Let's Shop! 🛒
+            </button>
+            <p class="disclaimer">Elsie provides general wellness & nutrition info, not medical advice. Always follow your doctor's guidance.</p>
+        </div>
+    </div>
+
+    <!-- MAIN COACHING SCREEN -->
+    <div id="screen-coach" class="screen">
+        <div class="coach-container">
+            <!-- Camera Feed -->
+            <div class="camera-wrapper">
+                <video id="camera-feed" autoplay playsinline muted></video>
+                <!-- Waiting state overlay -->
+                <div class="camera-waiting" id="camera-waiting">
+                    <img src="/static/elsie-scanning.png" alt="Elsie scanning" class="waiting-img">
+                    <p class="waiting-text">Setting up camera...</p>
+                    <p class="waiting-subtext">Please allow camera access when prompted</p>
+                </div>
+                <div class="camera-overlay">
+                    <div class="scan-indicator" id="scan-indicator">
+                        <div class="scan-ring"></div>
+                        <span>Scanning...</span>
+                    </div>
+                    <!-- Powered by Gemini badge -->
+                    <div class="powered-badge">
+                        <div class="gemini-icon"></div>
+                        <span>Powered by Gemini</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Elsie's Response Panel -->
+            <div class="response-panel" id="response-panel">
+                <div class="elsie-avatar">
+                    <img src="/static/elsie-mascot.png" alt="Elsie" class="avatar-img">
+                </div>
+                <div class="response-content">
+                    <div class="response-text" id="response-text">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Connection Status -->
+            <div class="connection-status" id="connection-status">
+                <span class="status-dot"></span>
+                <span class="status-text">Connecting to Elsie...</span>
+            </div>
+
+            <!-- Control Bar -->
+            <div class="control-bar">
+                <button class="control-btn" id="btn-mic" title="Talk to Elsie">
+                    <span class="btn-icon">🎤</span>
+                    <span class="btn-label">Mic Off</span>
+                </button>
+                <button class="control-btn active" id="btn-camera" title="Toggle Camera">
+                    <span class="btn-icon">📷</span>
+                    <span class="btn-label">Camera</span>
+                </button>
+                <button class="control-btn" id="btn-text" title="Type to Elsie">
+                    <span class="btn-icon">⌨️</span>
+                    <span class="btn-label">Type</span>
+                </button>
+                <button class="control-btn" id="btn-silent" title="Mute Elsie">
+                    <span class="btn-icon">🔊</span>
+                    <span class="btn-label">Sound</span>
+                </button>
+                <button class="control-btn" id="btn-profile" title="Your Profile">
+                    <span class="btn-icon">👤</span>
+                    <span class="btn-label">Profile</span>
+                </button>
+            </div>
+
+            <!-- Text Input (hidden by default) -->
+            <div class="text-input-bar" id="text-input-bar" style="display:none;">
+                <input type="text" id="text-input" placeholder="Ask Elsie about a product..." class="text-input-field">
+                <button id="btn-send-text" class="send-btn">➤</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/app.js?v=35"></script>
+</body>
+</html>
