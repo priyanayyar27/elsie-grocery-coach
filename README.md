@@ -88,7 +88,7 @@ Every one of these people gets the same advice: **"Watch what you eat."** Then t
 
 ![Badge](https://img.shields.io/badge/💡_Solution-Just_Point_and_Ask-34A853?style=flat-square)
 
-Elsie fills that gap by being the knowledgeable friend who shops with you — one who's already read your lab report.
+Elsie is a feature that fills this gap by being the knowledgeable friend who shops with you — one who's already read your lab report.
 
 Before your first trip, you upload your lab report (PDF or photo). Gemini reads the entire document and extracts **every** health marker it finds — blood sugar, cholesterol, iron, vitamins, thyroid, liver function, kidney markers, everything. The report is immediately deleted. Only the numbers stay. Now Elsie knows you personally — not just "diabetic," but "A1c at 7.2, LDL at 145, iron at 38, vitamin D low."
 
@@ -106,7 +106,7 @@ Unlike barcode apps, Elsie sees everything — packaged goods, fresh produce, ba
 
 ![Badge](https://img.shields.io/badge/✨_Features-v14-4285F4?style=flat-square)
 
-- **🧬 Extract ALL lab markers** — Upload once. Gemini reads the entire report: blood counts, vitamins, minerals, hormones, liver, kidney, thyroid, cholesterol, metabolic panel — everything. Report immediately deleted. Top 7 markers display color-coded (🟢 normal / 🟡 borderline / 🔴 abnormal) with ▲▼ arrows. Tap to expand full list in a popup.
+- **🧬 Extract ALL lab markers** — Upload once. Gemini reads the entire report: blood counts, vitamins, minerals, hormones, liver, kidney, thyroid, cholesterol, metabolic panel — everything. Report immediately deleted. You can immediately see the top 7 markers displayed. Tap to expand full list in a popup.
 - **🏥 12 health conditions** — Diabetes, pre-diabetes, high cholesterol, hypertension, kidney disease, pregnancy, celiac, vegetarian, vegan, dairy-free, nut allergy, heart health.
 - **🥦 Works on ALL products** — Packaged goods, fresh produce, bakery, deli, bulk bins. No barcode needed.
 - **🎤 Continuous voice** — Always listening. No button tap. Just talk naturally.
@@ -269,14 +269,28 @@ The deploy script builds the Docker image, pushes to Google Container Registry, 
 
 ![Badge](https://img.shields.io/badge/🗺️_Roadmap-3_Phases-4285F4?style=flat-square)
 
-**Phase 1 — Deepen the core (0-3 months)**
-Native iOS/Android app with Gemini audio streaming. Barcode scanning as secondary input alongside camera vision. Shopping list integration with healthier alternative suggestions.
+**Phase 1 — Build the intelligence layer (0-3 months)**
+Native iOS/Android app with Gemini audio streaming for true two-way voice. But the real work: build a clinically validated health-food scoring engine — "If your A1c is 7.2, this product scores 3/10" — curated and reviewed by dietitians, not generic LLM knowledge. This is what separates a feature from a product.
 
-**Phase 2 — Expand the audience (3-6 months)**
-Multi-language support starting with Spanish (60M+ U.S. speakers). Family profiles — one household, multiple health profiles, one grocery trip. Wearable support via Meta smart glasses and Apple Watch.
+**Phase 2 — Build the data flywheel (3-6 months)**
+Multi-language support starting with Spanish. Family profiles — one household, multiple health needs, one grocery trip. But the real value: track what users buy over months, correlate with their lab marker changes over time. "Users who bought these 15 products saw their A1c drop 0.4 points in 3 months." This longitudinal purchase-health dataset does not exist anywhere. No competitor can replicate it without the user base and time.
 
-**Phase 3 — Build the ecosystem (6-12 months)**
-Grocery store API integration for real-time pricing and aisle location. Health system partnerships for post-diagnosis dietary support. Anonymized dietary trend data for public health research. Meal planning engine personalized to health profiles.
+**Phase 3 — Build the moat (6-12 months)**
+Partnerships with health systems so Elsie is prescribed post-diagnosis — embedded in the clinical workflow, not competing on the App Store. Explore FDA Digital Therapeutic pathway for regulatory defensibility. Health food brand partnerships where brands earn "Elsie Recommended" status for specific conditions — creating a marketplace where better recommendations attract more users attract more brands.
+
+---
+
+**Target Audience: B2B**
+
+Elsie's core is open source. The business is the clinically validated health-food intelligence layer underneath — available as an API. Grocery delivery platforms integrate it to show "good for your profile" badges on product pages. Telehealth providers prescribe it post-diagnosis as a dietary management tool. Health insurers offer it to members because preventive dietary coaching is cheaper than hospitalization. Corporate wellness programs deploy it as an employee benefit. The defensibility is not the app — it is the proprietary scoring engine and the longitudinal purchase-health data that no competitor can replicate without the user base and time.
+
+---
+
+**Known Limitations**
+
+- **Safari only on iPhone.** Chrome on iPhone does not support the SpeechRecognition API — Apple restricts it to Safari. Camera and text features work on Chrome, but voice input does not.
+
+- **HTTPS required for voice.** SpeechRecognition and camera access require a secure connection. The deployed Cloud Run URL is HTTPS by default. Local development on `http://localhost` has limited voice support.
 
 ---
 
